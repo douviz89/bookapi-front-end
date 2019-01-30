@@ -5,10 +5,11 @@ import { map, catchError, tap } from 'rxjs/operators';
 
 import { Book } from './book';
 
-const getBooksUrl = 'http://localhost:8080/bookapi/api/books';
+const getBooksUrl = 'http://localhost:8080/bookapi/api/';
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type':  'application/json',
+    'responseType': 'text'
   })
 };
 
@@ -27,12 +28,22 @@ export class BookService {
   }
 
   getAllBooks(): Observable<any> {
-    return this._httpService.get(getBooksUrl)
+    return this._httpService.get(getBooksUrl + 'books')
               .pipe(
                 map(this.extractData),
                 catchError(this.handleError('getHeroes', []))
               );
   }
+
+  addBook(book: Book): Observable<Book> {
+    return this._httpService.post<Book>(getBooksUrl + 'save', book, httpOptions)
+      .pipe(
+        catchError(this.handleError('addBook', book))
+      );
+  }
+
+
+
 
   /**
  * Handle Http operation that failed.
@@ -47,7 +58,7 @@ private handleError<T> (operation = 'operation', result?: T) {
     console.error(error); // log to console instead
 
     // TODO: better job of transforming error for user consumption
-    this.log(`${operation} failed: ${error.message}`);
+    console.log(`${operation} failed: ${error.message}`);
 
     // Let the app keep running by returning an empty result.
     return of(result as T);

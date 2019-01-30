@@ -11,6 +11,8 @@ export class BookComponent implements OnInit {
 
   books: any = [];
 
+  book = new Book();
+
   constructor(private _bookService: BookService) { }
 
   ngOnInit() {
@@ -25,4 +27,23 @@ export class BookComponent implements OnInit {
       });
   }
 
+  addBook(): void {
+    this._bookService.addBook(this.book)
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.reset();
+            this.getBooks();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+  }
+
+  private reset() {
+    this.book.id = null;
+    this.book.title = null;
+    this.book.author = null;
+  }
 }
