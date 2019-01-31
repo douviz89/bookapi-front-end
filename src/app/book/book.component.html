@@ -7,7 +7,7 @@
       Enter Author: <input type="text" [(ngModel)]="book.author" name="author"><br/>
     </form>
 
-    <input type="button" value="Add Customer" class="add-button" (click)="addBook()"/>
+    <input type="button" value="Add Book" class="add-button" (click)="addBook()"/>
 
 
     <table>
@@ -21,7 +21,7 @@
         <td>{{ book.id }}</td>
         <td>{{ book.title }}</td>
         <td>{{ book.author }}</td>
-        <td>Edit | Delete</td>
+        <td><button (click)="getBookById(book.id)">Edit</button> | <button (click)="deleteBook(book.id)">Delete</button></td>
       </tr>
     </table>
   </div>

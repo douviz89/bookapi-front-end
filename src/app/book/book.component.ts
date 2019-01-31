@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from './book.service';
 import { Book } from './book';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -10,8 +11,8 @@ import { Book } from './book';
 export class BookComponent implements OnInit {
 
   books: any = [];
-
   book = new Book();
+
 
   constructor(private _bookService: BookService) { }
 
@@ -39,6 +40,30 @@ export class BookComponent implements OnInit {
             console.log(error);
           }
         );
+  }
+
+  deleteBook(bookId: string): void {
+    this._bookService.deleteBook(bookId)
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.getBooks();
+          },
+          (error) => console.log(error)
+        );
+  }
+
+  getBookById(bookId: string): void {
+    this._bookService.getBook(bookId)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.book = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   private reset() {
