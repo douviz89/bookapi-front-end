@@ -1,18 +1,28 @@
-<div class="container-fluid">
+<div class="container">
   <h1>Welcome to BookAPI</h1>
   <div id="content">
 
     <form>
-      <div class="form-group">
-        <label for="bookTitle">Book Title</label>
-        <input type="text" id="bookTitle" [(ngModel)]="book.title" class="form-control" name="title"><br />
-
-        <label for="bookAuthor">Enter Author</label>
-        <input type="text" id="bookAuthor" [(ngModel)]="book.author" class="form-control" name="author"><br />
+      <div class="form-group row">
+        <label for="bookTitle" class="col-sm-2 col-form-label">Book Title</label>
+        <div class="col-sm-10">
+          <input type="text" id="bookTitle" [(ngModel)]="book.title" class="form-control" placeholer="Title" name="title">
+        </div>
       </div>
-      <button type="button" class="btn btn-primary" (click)="addBook()">Save Book</button>
+      <div class="form-group row">
+        <label for="bookAuthor" class="col-sm-2 col-form-label">Book Author</label>
+        <div class="col-sm-10">
+          <input type="text" id="bookAuthor" [(ngModel)]="book.author" class="form-control" placeholer="Author" name="author">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="button" class="btn btn-primary" (click)="addBook()">Save Book</button>
+        </div>
+      </div>
     </form>
-    <br>
+
+    <hr>
     <table class="table table table-striped table-hover">
       <caption>List of books</caption>
       <thead class="thead-light">
@@ -35,7 +45,7 @@
           </td>
         </tr>
         <tr *ngIf="books && books.length == 0">
-          <td colspan="3">No records found!</td>
+          <td colspan="4">No records found!</td>
         </tr>
       </tbody>
 
