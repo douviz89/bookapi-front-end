@@ -1,28 +1,44 @@
-<h1>Welcome to BookAPI</h1>
-<div id="container">
+<div class="container-fluid">
+  <h1>Welcome to BookAPI</h1>
   <div id="content">
 
     <form>
-      Enter Title: <input type="text" [(ngModel)]="book.title" name="title"><br/>
-      Enter Author: <input type="text" [(ngModel)]="book.author" name="author"><br/>
+      <div class="form-group">
+        <label for="bookTitle">Book Title</label>
+        <input type="text" id="bookTitle" [(ngModel)]="book.title" class="form-control" name="title"><br />
+
+        <label for="bookAuthor">Enter Author</label>
+        <input type="text" id="bookAuthor" [(ngModel)]="book.author" class="form-control" name="author"><br />
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addBook()">Save Book</button>
     </form>
+    <br>
+    <table class="table table table-striped table-hover">
+      <caption>List of books</caption>
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <th scope="row">{{ book.id }}</th>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>
+            <span (click)="getBookById(book.id)"><i class="fas fa-edit"></i></span>
+            |
+            <span (click)="deleteBook(book.id)"><i class="fas fa-trash-alt"></i></span>
+          </td>
+        </tr>
+        <tr *ngIf="books && books.length == 0">
+          <td colspan="3">No records found!</td>
+        </tr>
+      </tbody>
 
-    <input type="button" value="Add Book" class="add-button" (click)="addBook()"/>
-
-
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Actions</th>
-      </tr>
-      <tr *ngFor="let book of books">
-        <td>{{ book.id }}</td>
-        <td>{{ book.title }}</td>
-        <td>{{ book.author }}</td>
-        <td><button (click)="getBookById(book.id)">Edit</button> | <button (click)="deleteBook(book.id)">Delete</button></td>
-      </tr>
     </table>
   </div>
 </div>
